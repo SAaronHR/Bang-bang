@@ -27,7 +27,7 @@ function siguientePersonaje(){
         personajeActual = 1;
     }
     document.getElementById("personaje").src = "img/p"+personajeActual+".png"
-    var sfxclick = new Audio('sfx/click.m4a');
+    var sfxclick = new Audio('sfx/Jump.mp3');
     sfxclick.play();
 }
 
@@ -37,7 +37,7 @@ function anteriorPersonaje(){
         personajeActual = 6;
     }
     document.getElementById("personaje").src = "img/p"+personajeActual+".png"
-    var sfxclick = new Audio('sfx/click.m4a');
+    var sfxclick = new Audio('sfx/Jump.mp3');
     sfxclick.play();
 
 }
@@ -52,7 +52,7 @@ function personaje2(){
         function() {
             window.location.assign("Personaje2.html");
         },2000)
-    var sfxStart = new Audio('sfx/click.m4a');
+    var sfxStart = new Audio('sfx/Jump.mp3');
     sfxStart.play();
 }
 
