@@ -175,7 +175,7 @@ function conteo() {
                 document.querySelector('.no1').style.opacity = "0";
                 document.querySelector('.conteo').style.display = "none";
                 sfxclick.play();
-                
+
                 // Habilitar disparos
                 document.querySelector('.left').setAttribute('onclick', 'disparo1()');
                 document.querySelector('.right').setAttribute('onclick', 'disparo2()');
@@ -188,17 +188,17 @@ function disparo1() {
     console.log("Jugador 1 dispara");
     document.querySelector('.right').setAttribute('onclick', '');
     document.querySelector('.left').setAttribute('onclick', '');
-    
+
     // El jugador 2 (derecha) es eliminado
     document.querySelector('.p2').style.right = "-800px";
-    
+
     // Animación de disparo para jugador 1
     document.querySelector('.p1').style.left = "10px";
     setTimeout(function () {
         document.querySelector('.p1').style.left = "6%"; // Regresa a su posición original
     }, 150);
 
-    reproducirAudio('sfx/Jump.mp3');
+    reproducirAudio('sfx/start.m4a');
 
     // Reiniciar juego tras 2 segundos
     setTimeout(function () {
@@ -210,17 +210,17 @@ function disparo2() {
     console.log("Jugador 2 dispara");
     document.querySelector('.right').setAttribute('onclick', '');
     document.querySelector('.left').setAttribute('onclick', '');
-    
+
     // El jugador 1 (izquierda) es eliminado
     document.querySelector('.p1').style.left = "-800px";
-    
+
     // Animación de disparo para jugador 2
     document.querySelector('.p2').style.right = "10px";
     setTimeout(function () {
         document.querySelector('.p2').style.right = "2.5%"; // Regresa a su posición original
     }, 150);
 
-    reproducirAudio('sfx/Jump.mp3');
+    reproducirAudio('sfx/start.m4a');
 
     // Reiniciar juego tras 2 segundos
     setTimeout(function () {

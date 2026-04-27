@@ -323,12 +323,14 @@ html {
     left: 0;
     z-index: 99999;
     pointer-events: all;
+    background-color: rgb(0, 0, 0, .7);
 }
 
 .msj,
 .no1,
 .no2,
 .no3 {
+
     width: 100%;
     position: absolute;
     height: 200px;
