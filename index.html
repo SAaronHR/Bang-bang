@@ -11,31 +11,10 @@
     <!-- manifest -->
 </head>
 <body>
-    <div class="bg-transicion bg-transicion-show"></div>
-    <div class="bg-juego">
-        <div class="left">
-            <div class="p1">
-                <h2 id="jugador1"></h2>
-            </div>
-        </div>
-        <div class="right">
-            <div class="p2">
-                <h2 id="jugador2"></h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="conteo">
-        <div class="no3"><img src="img/3.png"></div>
-        <div class="no2"><img src="img/2.png"></div>
-        <div class="no1"><img src="img/1.png"></div>
-
-        <div class="msj" onclick="conteo()">¿LISTOS?</div>
+    <div class="bg-transicion"></div>
+    <div class="bg-inicio">
+        <button class="btn-inicio" onclick="jugar()">JUGAR</button>
     </div>
 </body>
 <script type="text/javascript" src="funciones.js"></script>
-<script type="text/javascript">
-    window.addEventListener('load', quitarBG);
-    window.addEventListener('load', cargarEscenario);
-</script>
 </html>
