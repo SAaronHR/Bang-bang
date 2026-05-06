@@ -97,7 +97,43 @@ function reproducirAudio(ruta) {
 // funcion para cargar el fondo del escenario y a los
 // personajes seleccionados con el nombre del jugador
 function cargarEscenario() {
-    var bg = Math.floor(Math.random() * 3) + 1;
+    if (!localStorage.getItem('marcador1')) {
+        localStorage.setItem('marcador1', 0);
+        localStorage.setItem('marcador2', 0);
+        marcador1 = localStorage.getItem('marcador1')
+        marcador2 = localStorage.getItem('marcador2')
+    } else {
+        marcador1 = localStorage.getItem('marcador1')
+        marcador2 = localStorage.getItem('marcador2')
+    }
+    //contador de muertes
+    for (i = 0; 1 < marcador1; i++) {
+        document.querySelector('.vidas2').innerHTML += "<img src='img/calavera.png'>"
+    }
+    for (i = 0; 1 < marcador2; i++) {
+        document.querySelector('.vidas1').innerHTML += "<img src='img/calavera.png'>"
+    }
+
+    if (marcador1 >= 3 || marcador2 >= 3) {
+        document.querySelector('bg-juego').style.backgroundImage = "url('img/bg_personaje.png')";
+        if (marcador1 >= 3) {
+            document.querySelector('#nombreGanador').innerHTML = localStorage.getItem('jugador1')
+            document.querySelector('#imgGanador').setAttribute('src', 'img/p' + localStorage.getItem('personaje1') + '.png')
+            document.querySelector('.left').style.display = "none";
+            document.querySelector('.right').style.display = "none";
+        } else if (marcador2 >= 3) {
+            document.querySelector('#nombreGanador').innerHTML = localStorage.getItem('jugador2')
+            document.querySelector('#imgGanador').setAttribute('src', 'img/p' + localStorage.getItem('personaje2') + '.png')
+            document.querySelector('.left').style.display = "none";
+            document.querySelector('.right').style.display = "none";
+        }
+    } else {
+        listos();
+        document.querySelector('.ganador').style.display = "none";
+        bg = Math.floor(Math.random() * 3) + 1;
+        document.querySelector('.bg-juego').style.backgroundImage = "url('img/bg" + bg + ".png')";
+    }
+
     var jugador1 = localStorage.getItem('jugador1') || 'jug1';
     var jugador2 = localStorage.getItem('jugador2') || 'jug2';
     var personaje1 = parseInt(localStorage.getItem('personaje1'), 10) || 1;
@@ -125,7 +161,6 @@ function cargarEscenario() {
     if (j2) j2.textContent = jugador2;
 
     reproducirMusicaJuego();
-    listos();
 }
 
 function reproducirMusicaJuego() {
@@ -198,6 +233,9 @@ function disparo1() {
         document.querySelector('.p1').style.left = "6%"; // Regresa a su posición original
     }, 150);
 
+    marcador1++
+    localStorage.setItem('marcador1', marcador1)
+
     reproducirAudio('sfx/start.m4a');
 
     // Reiniciar juego tras 2 segundos
@@ -220,10 +258,21 @@ function disparo2() {
         document.querySelector('.p2').style.right = "2.5%"; // Regresa a su posición original
     }, 150);
 
+    marcador2++
+    localStorage.setItem('marcador2', marcador2)
+
     reproducirAudio('sfx/start.m4a');
 
     // Reiniciar juego tras 2 segundos
     setTimeout(function () {
         window.location.reload();
     }, 2000);
+}
+
+function restart() {
+    //poner los marcadores en local storage en 0
+    localStorage.setItem('marcador1', 0);
+    localStorage.setItem('marcador2', 0);
+    //regresar a la ventana personaje.html
+    window.location.assign('personaje.html');
 }
