@@ -23,6 +23,8 @@ function quitarBG() {
 
 let personajeActual = 1;
 let puedeDisparar = false;
+let primerDisparo = 0;
+let timeoutEmpate;
 function siguientePersonaje() {
 	personajeActual++;
 	if (personajeActual == 7) {
@@ -155,7 +157,55 @@ function conteo() {
 
 function disparo1() {
 	if (!puedeDisparar) return;
+	if (primerDisparo === 1) return;
+	if (primerDisparo === 2) {
+		declararEmpate();
+		return;
+	}
+	primerDisparo = 1;
+	timeoutEmpate = setTimeout(ejecutarDisparo1, 80); // 80ms ventana de empate
+}
+
+function disparo2() {
+	if (!puedeDisparar) return;
+	if (primerDisparo === 2) return;
+	if (primerDisparo === 1) {
+		declararEmpate();
+		return;
+	}
+	primerDisparo = 2;
+	timeoutEmpate = setTimeout(ejecutarDisparo2, 80); // 80ms ventana de empate
+}
+
+function declararEmpate() {
+	clearTimeout(timeoutEmpate);
 	puedeDisparar = false;
+	primerDisparo = 0;
+	
+	document.querySelector('.right').removeAttribute('onclick');
+	document.querySelector('.left').removeAttribute('onclick');
+
+	// Ambos personajes salen volando
+	document.querySelector('.p2').style.right = "-800px";
+	document.querySelector('.p1').style.left = "-800px";
+
+	document.querySelector('.conteo').style.display = "block";
+	document.querySelector('.no1').style.display = "none";
+	document.querySelector('.no2').style.display = "none";
+	document.querySelector('.no3').style.display = "none";
+	document.querySelector('.msj').innerHTML = "¡EMPATE! NINGUNO GANA";
+	document.querySelector('.msj').style.opacity = "1";
+
+	setTimeout(function () {
+		window.location.assign('juego.html');
+	}, 1500);
+	var sfxStart = new Audio('sfx/start.m4a');
+	sfxStart.play();
+}
+
+function ejecutarDisparo1() {
+	puedeDisparar = false;
+	primerDisparo = 0;
 	console.log('disparo1');
 	document.querySelector('.right').removeAttribute('onclick');
 	document.querySelector('.left').removeAttribute('onclick');
@@ -172,7 +222,9 @@ function disparo1() {
 	document.querySelector('.no1').style.display = "none";
 	document.querySelector('.no2').style.display = "none";
 	document.querySelector('.no3').style.display = "none";
-	document.querySelector('.msj').innerHTML = "¡" + localStorage.getItem('jugador1').toUpperCase() + " GANA!";
+	
+	let j1 = localStorage.getItem('jugador1') || 'Jugador 1';
+	document.querySelector('.msj').innerHTML = "¡" + j1.toUpperCase() + " GANA!";
 	document.querySelector('.msj').style.opacity = "1";
 
 	setTimeout(function () {
@@ -182,9 +234,9 @@ function disparo1() {
 	sfxStart.play();
 }
 
-function disparo2() {
-	if (!puedeDisparar) return;
+function ejecutarDisparo2() {
 	puedeDisparar = false;
+	primerDisparo = 0;
 	console.log('disparo2');
 	document.querySelector('.right').removeAttribute('onclick');
 	document.querySelector('.left').removeAttribute('onclick');
@@ -201,7 +253,9 @@ function disparo2() {
 	document.querySelector('.no1').style.display = "none";
 	document.querySelector('.no2').style.display = "none";
 	document.querySelector('.no3').style.display = "none";
-	document.querySelector('.msj').innerHTML = "¡" + localStorage.getItem('jugador2').toUpperCase() + " GANA!";
+	
+	let j2 = localStorage.getItem('jugador2') || 'Jugador 2';
+	document.querySelector('.msj').innerHTML = "¡" + j2.toUpperCase() + " GANA!";
 	document.querySelector('.msj').style.opacity = "1";
 
 	setTimeout(function () {
@@ -210,6 +264,7 @@ function disparo2() {
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
+
 function restart() {
 	localStorage.setItem('marcador1', '0');
 	localStorage.setItem('marcador2', '0');
