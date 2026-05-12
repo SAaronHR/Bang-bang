@@ -3,7 +3,7 @@ function jugar() {
 	setTimeout(
 		function () {
 			window.location.assign('personaje.html');
-		}, 2000)
+		}, 600)
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
@@ -18,7 +18,7 @@ function quitarBG() {
 	setTimeout(
 		function () {
 			document.querySelector('.bg-transicion').classList.remove('bg-transicion-show')
-		}, 2000)
+		}, 600)
 }
 
 let personajeActual = 1;
@@ -45,25 +45,29 @@ function anteriorPersonaje() {
 
 function personaje2() {
 	localStorage.setItem('personaje1', personajeActual);
-	localStorage.setItem('jugador1', document.getElementById('jugador1').value);
+	let j1 = document.getElementById('jugador1').value.trim();
+	if (j1 === '') j1 = 'Jugador 1';
+	localStorage.setItem('jugador1', j1);
 	ponerBG();
 	setTimeout(
 		function () {
 			window.location.assign('personaje2.html');
-		}, 2000)
+		}, 600)
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
 
 function comenzarJuego() {
 	localStorage.setItem('personaje2', personajeActual);
-	localStorage.setItem('jugador2', document.getElementById('jugador2').value);
+	let j2 = document.getElementById('jugador2').value.trim();
+	if (j2 === '') j2 = 'Jugador 2';
+	localStorage.setItem('jugador2', j2);
 
 	ponerBG();
 	setTimeout(
 		function () {
 			window.location.assign('juego.html');
-		}, 2000)
+		}, 600)
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
@@ -88,6 +92,7 @@ function cargarEscenario() {
 
 	if (marcador1 >= 3 || marcador2 >= 3) {
 		document.querySelector('.bg-juego').style.backgroundImage = "url(img/bg_personaje.png)";
+		document.querySelector('.ganador').style.display = "block";
 		if (marcador1 >= 3) {
 			document.querySelector('#nombreGanador').innerHTML = localStorage.getItem('jugador1');
 			document.querySelector('#imgGanador').setAttribute('src', "img/p" + localStorage.getItem('personaje1') + ".png");
@@ -150,6 +155,7 @@ function conteo() {
 
 function disparo1() {
 	if (!puedeDisparar) return;
+	puedeDisparar = false;
 	console.log('disparo1');
 	document.querySelector('.right').removeAttribute('onclick');
 	document.querySelector('.left').removeAttribute('onclick');
@@ -162,30 +168,45 @@ function disparo1() {
 	marcador1++;
 	localStorage.setItem('marcador1', marcador1);
 
+	document.querySelector('.conteo').style.display = "block";
+	document.querySelector('.no1').style.display = "none";
+	document.querySelector('.no2').style.display = "none";
+	document.querySelector('.no3').style.display = "none";
+	document.querySelector('.msj').innerHTML = "¡" + localStorage.getItem('jugador1').toUpperCase() + " GANA!";
+	document.querySelector('.msj').style.opacity = "1";
+
 	setTimeout(function () {
 		window.location.assign('juego.html');
-	}, 2000);
+	}, 1500);
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
 
 function disparo2() {
 	if (!puedeDisparar) return;
+	puedeDisparar = false;
 	console.log('disparo2');
 	document.querySelector('.right').removeAttribute('onclick');
 	document.querySelector('.left').removeAttribute('onclick');
-	document.querySelector('.p1').style.right = "-800px";
-	document.querySelector('.p2').style.left = "10px";
+	document.querySelector('.p1').style.left = "-800px";
+	document.querySelector('.p2').style.right = "10px";
 	setTimeout(function () {
-		document.querySelector('.p2').style.left = "30px";
+		document.querySelector('.p2').style.right = "30px";
 	}, 150);
 
 	marcador2++;
 	localStorage.setItem('marcador2', marcador2);
 
+	document.querySelector('.conteo').style.display = "block";
+	document.querySelector('.no1').style.display = "none";
+	document.querySelector('.no2').style.display = "none";
+	document.querySelector('.no3').style.display = "none";
+	document.querySelector('.msj').innerHTML = "¡" + localStorage.getItem('jugador2').toUpperCase() + " GANA!";
+	document.querySelector('.msj').style.opacity = "1";
+
 	setTimeout(function () {
 		window.location.assign('juego.html');
-	}, 2000);
+	}, 1500);
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
