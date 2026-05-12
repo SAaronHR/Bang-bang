@@ -22,6 +22,7 @@ function quitarBG() {
 }
 
 let personajeActual = 1;
+let puedeDisparar = false;
 function siguientePersonaje() {
 	personajeActual++;
 	if (personajeActual == 7) {
@@ -119,6 +120,7 @@ function listos() {
 }
 
 function conteo() {
+	document.querySelector('.msj').removeAttribute('onclick');
 	var sfxclic = new Audio('sfx/Jump.mp3');
 	document.querySelector('.msj').style.opacity = "0";
 	document.querySelector('.no3').style.opacity = "1";
@@ -140,15 +142,17 @@ function conteo() {
 				document.querySelector('.no1').style.opacity = "0";
 				document.querySelector('.conteo').style.display = "none";
 				sfxclic.play();
+				puedeDisparar = true;
 			}, tiempoRandom);
 		}, 1000);
 	}, 1000);
 }
 
 function disparo1() {
+	if (!puedeDisparar) return;
 	console.log('disparo1');
-	document.querySelector('.right').setAttribute('onclick', '');
-	document.querySelector('.left').setAttribute('onclick', '');
+	document.querySelector('.right').removeAttribute('onclick');
+	document.querySelector('.left').removeAttribute('onclick');
 	document.querySelector('.p2').style.right = "-800px";
 	document.querySelector('.p1').style.left = "10px";
 	setTimeout(function () {
@@ -166,9 +170,10 @@ function disparo1() {
 }
 
 function disparo2() {
+	if (!puedeDisparar) return;
 	console.log('disparo2');
-	document.querySelector('.right').setAttribute('onclick', '');
-	document.querySelector('.left').setAttribute('onclick', '');
+	document.querySelector('.right').removeAttribute('onclick');
+	document.querySelector('.left').removeAttribute('onclick');
 	document.querySelector('.p1').style.right = "-800px";
 	document.querySelector('.p2').style.left = "10px";
 	setTimeout(function () {
