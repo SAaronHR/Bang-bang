@@ -3,7 +3,7 @@ function jugar() {
 	setTimeout(
 		function () {
 			window.location.assign('personaje.html');
-		}, 600)
+		}, 1200)
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
@@ -52,7 +52,7 @@ function personaje2() {
 	setTimeout(
 		function () {
 			window.location.assign('personaje2.html');
-		}, 600)
+		}, 1200)
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
@@ -67,7 +67,7 @@ function comenzarJuego() {
 	setTimeout(
 		function () {
 			window.location.assign('juego.html');
-		}, 600)
+		}, 1200)
 	var sfxStart = new Audio('sfx/start.m4a');
 	sfxStart.play();
 }
